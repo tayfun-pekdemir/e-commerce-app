@@ -5,8 +5,11 @@ export default function ProductCard({ id, title, category, price, discountedPric
 
     const [selectedColor, setSelectedColor] = useState("");
     return (
-        <div className="flex flex-col">
-            <Link to={`/products/${id}`} className="flex flex-col"><img className="object-cover" src={image}></img></Link>
+        <div className="flex flex-col md:flex-1/5">
+            <Link to={`/products/${id}`} className="flex justify-center items-center">
+                <img className="object-cover w-full" src={image}>
+                </img>
+            </Link>
             <div className="flex flex-col gap-2.5 pt-6">
                 <h4 className="font-bold">{title}</h4>
                 <p className="text-sm text-[#737373]">{category}</p>
