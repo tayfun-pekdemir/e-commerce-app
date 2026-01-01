@@ -11,7 +11,7 @@ export default function ProductCard({ id, title, category, price, discountedPric
                 </img>
             </Link>
             <div className="flex flex-col gap-2.5 pt-6">
-                <h4 className="font-bold">{title}</h4>
+                <h4 className="font-bold text-[#252B42]">{title}</h4>
                 <p className="text-sm text-[#737373]">{category}</p>
                 <p className="text-[#BDBDBD] font-bold">{price} <span className="text-[#23856D]">{discountedPrice}</span></p>
                 <div className="flex items-center justify-center gap-2.5">
