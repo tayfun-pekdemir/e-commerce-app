@@ -1,0 +1,141 @@
+import { User, Search, ShoppingCart, Menu, ChevronDown, Heart } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useState } from "react"
+
+export default function Navbar() {
+
+    const [isOpen, setIsOpen] = useState();
+
+    const menCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
+    const womenCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
+
+    return (
+
+        <nav className="p-11 flex flex-row items-center flex-wrap justify-between md:py-3 md:flex-nowrap md:gap-3">
+            <Link
+                to="/"
+                className="text-2xl font-bold text-[#252B42] md:order-0 lg:mr-24 "
+            >
+                Bandage
+            </Link>
+
+            <div className="flex justify-end items-center gap-2 md:order-2 md:text-[#23A6F0] lg:gap-5">
+                <Link
+                    to="/login"
+                    className="flex flex-row items-center justify-center gap-1 md:hover:text-[#1D8BD3]"
+                >
+                    <User className="w-6 h-6 md:w-3.5 md:h-3.5" />
+                    <span className="hidden md:flex text-center font-bold text-sm whitespace-nowrap">
+                        Login / Register
+                    </span>
+                </Link>
+
+                <Link to="/search" className="flex items-center justify-center md:hover:text-[#1D8BD3]">
+                    <Search className="w-6 h-6 md:w-4 md:h-4" />
+                </Link>
+
+                <Link to="/cart" className="flex items-center justify-center text-xs gap-1 md:hover:text-[#1D8BD3]">
+                    <ShoppingCart className="w-6 h-6 md:w-3.75 md:h-3.75" />
+                    <span>1</span>
+                </Link>
+
+                <button
+                    type="button"
+                    className="md:hidden flex items-center justify-center cursor-pointer"
+                >
+                    <Menu className="w-6 h-6 md:w-3 md:h-3" />
+                </button>
+
+                <Link
+                    to="/favourite"
+                    className="hidden md:flex items-center justify-center text-xs gap-1 hover:text-[#1D8BD3]"
+                >
+                    <Heart className="w-6 h-6 md:w-4 md:h-3.75" />
+                    <span>1</span>
+                </Link>
+            </div>
+
+            <ul className="flex flex-col gap-7 flex-1 text-center text-[#737373] font-400 justify-center text-3xl mt-10 basis-full md:order-1 md:mt-0 md:text-sm md:flex-row md:gap-3 md:justify-start md:font-bold">
+                <li>
+                    <Link to="/" className=" hover:text-[#252B42]">
+                        Home
+                    </Link>
+                </li>
+
+                <li className="hidden md:flex relative"
+                    onMouseEnter={() => setIsOpen(true)}
+                    onMouseLeave={() => setIsOpen(false)}>
+                    <Link to="/shop"
+                        className="hover:text-[#252B42] flex items-center cursor-pointer"
+
+                    >
+                        Shop <ChevronDown className="w-3.5 h-3.5 " />
+                    </Link>
+                    {isOpen &&
+                        <div className="absolute z-999 top-full left-0 bg-white min-w-99 p-8 shadow-lg">
+                            <ul className="flex flex-row gap-4 text-sm font-bold text-start">
+                                <li className="flex flex-col gap-8 flex-1">
+                                    <h3 className="text-[#252B42] ">
+                                        <Link to="/category/women" onClick={() => setIsOpen(false)}>Kadın</Link></h3>
+                                    <ul className="flex flex-col gap-4">
+                                        {womenCategories.map(category => {
+                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
+                                                        <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                                    </li>
+                                        })}
+                                    </ul>
+                                </li>
+                                <li className="flex flex-col gap-8 flex-1">
+                                    <h3 className="text-[#252B42]"><Link to="/category/men" onClick={() => setIsOpen(false)}>Erkek</Link></h3>
+                                    <ul className="flex flex-col gap-4">
+                                        {menCategories.map(category => {
+                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
+                                                        <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                                    </li>
+                                        })}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </li>
+
+                <li className="md:hidden">
+                    <Link to="/products" className=" hover:text-[#252B42]">
+                        Product
+                    </Link>
+                </li>
+
+                <li className="md:hidden">
+                    <Link to="/pricing" className=" hover:text-[#252B42]">
+                        Pricing
+                    </Link>
+                </li>
+
+                <li className="hidden md:flex">
+                    <Link to="/about" className=" hover:text-[#252B42]">
+                        About
+                    </Link>
+                </li>
+
+                <li className="hidden md:flex">
+                    <Link to="/blog" className="hover:text-[#252B42]">
+                        Blog
+                    </Link>
+                </li>
+
+                <li>
+                    <Link to="/contact" className="hover:text-[#252B42]">
+                        Contact
+                    </Link>
+                </li>
+
+                <li className="hidden md:flex">
+                    <Link to="/pages" className="hover:text-[#252B42]">
+                        Pages
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    )
+}

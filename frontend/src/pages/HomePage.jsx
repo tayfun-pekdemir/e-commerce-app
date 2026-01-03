@@ -63,17 +63,19 @@ export default function HomePage() {
                     </h3>
                     <p className="text-sm text-[#737373]">Problems trying to resolve the conflict between</p>
                 </div>
-                <div className="flex flex-row justify-center gap-8 flex-wrap ">
+                <ul className="flex flex-row justify-center gap-8 flex-wrap ">
                     {
                         products.slice(0, 8).map(product => {
-                            return <ProductCard key={product.id} id={product.id} title={product.title} category={product.category} price={product.price} discountedPrice={product.discountedPrice}
-                                image={product.image} colors={product.colors} />
+                            return <li className="md:flex-1/5" key={product.id}>
+                                <ProductCard id={product.id} title={product.title} category={product.category} price={product.price} discountedPrice={product.discountedPrice}
+                                    image={product.image} colors={product.colors} />
+                            </li>
                         })
                     }
-                </div>
+                </ul>
             </section>
-            <ProductSlider/>
-            <PromoSection/>
+            <ProductSlider />
+            <PromoSection />
             <section className="flex flex-col text-center justify-center py-20 px-11 gap-12 lg:px-48">
                 <div className="flex flex-col items-center gap-2.5 pb-12">
                     <h2 className="text-[#23A6F0] text-sm font-bold">Practice Advice</h2>
@@ -82,11 +84,13 @@ export default function HomePage() {
                     </h3>
                     <p className="text-sm text-[#737373]">Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics</p>
                 </div>
-                <div className="flex flex-col gap-7 md:flex-row md:justify-between">
-                {mockBlogs.map(blog => {
-                   return <BlogCard key={blog.id} image={blog.image}/>
-                })}
-                </div>
+                <ul className="flex flex-col gap-7 md:flex-row md:justify-between">
+                    {mockBlogs.map(blog => {
+                        return <li key={blog.id}>
+                            <BlogCard image={blog.image} />
+                        </li>
+                    })}
+                </ul>
             </section>
         </>
     )

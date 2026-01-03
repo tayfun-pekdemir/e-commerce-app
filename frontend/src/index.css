@@ -27,14 +27,6 @@
   display: none;
 }
 
-.custom-swiper .swiper-button-prev {
-  margin-left: 16px !important ;
-}
-
-.custom-swiper .swiper-button-next {
-  margin-right: 16px ;
-}
-
 @media (min-width: 768px) {
   
   .custom-swiper .swiper-pagination {

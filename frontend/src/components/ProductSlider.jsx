@@ -22,9 +22,9 @@ function ProductSlider() {
       "
     >
       <SwiperSlide>
-        <div className="bg-[#23856D] flex flex-col h-295 justify-end lg:flex-row lg:justify-center lg:items-center lg:h-[70vh] lg:gap-7 lg:px-50">
+        <div className="bg-[#23856D] flex flex-col h-295 justify-end lg:flex-row lg:justify-center lg:items-center lg:h-[70vh] lg:gap-7 lg:px-48">
           <div
-            className="flex flex-col h-107.25 items-center text-center justify-end gap-9 px-15 lg:text-start lg:items-start lg:justify-center lg:px-0 lg:h-full "
+            className="flex flex-col h-107.25 items-center text-center justify-end gap-9 px-11 lg:text-start lg:items-start lg:justify-center lg:px-0 lg:h-full "
           >
             <h2 className="text-white text-xl font-bold ">SUMMER 2020</h2>
             <h1 className="text-white text-4xl font-bold leading-12 lg:leading-20 lg:text-6xl lg:max-w-[60%]">
@@ -43,9 +43,9 @@ function ProductSlider() {
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="bg-[#23856D] flex flex-col h-295 justify-end lg:flex-row lg:justify-center lg:items-center lg:h-[70vh] lg:gap-7 lg:px-50">
+        <div className="bg-[#23856D] flex flex-col h-295 justify-end lg:flex-row lg:justify-center lg:items-center lg:h-[70vh] lg:gap-7 lg:px-48">
           <div
-            className="flex flex-col h-107.25 items-center text-center justify-end gap-9 px-15 lg:text-start lg:items-start lg:justify-center lg:px-0 lg:h-full "
+            className="flex flex-col h-107.25 items-center text-center justify-end gap-9 px-11 lg:text-start lg:items-start lg:justify-center lg:px-0 lg:h-full "
           >
             <h2 className="text-white text-xl font-bold ">SUMMER 2020</h2>
             <h1 className="text-white text-4xl font-bold leading-12 lg:leading-20 lg:text-6xl lg:max-w-[60%]">

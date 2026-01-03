@@ -10,25 +10,25 @@ export default function Footer() {
 
     return (
         <footer>
-            <div className="flex flex-col px-12 py-14 gap-6 bg-[#FAFAFA] lg:flex-row lg:px-48 lg:justify-between">
+            <div className="flex flex-col px-11 py-14 gap-6 bg-[#FAFAFA] lg:flex-row lg:px-48 lg:justify-between">
                 <Link to="/" className="text-2xl font-bold text-[#252B42]">
                     Bandage
                 </Link>
 
                 <div className="flex gap-4">
-                    <a href="https://facebook.com">
+                    <a href="https://facebook.com" className="inline-flex items-center" target="_blank">
                     <FontAwesomeIcon
                         icon={faFacebook}
                         className="text-[23px] text-[#23A6F0] hover:text-[#1D8BD3]"
                     />
                     </a>
-                    <a href="https://instagram.com">
+                    <a href="https://instagram.com" className="inline-flex items-center" target="_blank">
                         <FontAwesomeIcon
                             icon={faInstagram}
                             className="text-[23px] text-[#23A6F0] hover:text-[#1D8BD3]"
                         />
                     </a>
-                    <a href="https://x.com">
+                    <a href="https://x.com" className="inline-flex items-center" target="_blank">
                         <FontAwesomeIcon
                             icon={faTwitter}
                             className="text-[23px] text-[#23A6F0] hover:text-[#1D8BD3]"
@@ -36,7 +36,7 @@ export default function Footer() {
                     </a>
                 </div>
             </div>
-            <div className="flex flex-col px-12 pt-14 pb-20 gap-8 lg:flex-row lg:justify-between lg:px-48 lg:gap-5">
+            <div className="flex flex-col px-11 pt-14 pb-20 gap-8 lg:flex-row lg:justify-between lg:px-48 lg:gap-5">
 
                 <nav className="flex-1">
                     <ul className="flex flex-col gap-8 lg:flex-row lg:justify-between">
@@ -92,7 +92,7 @@ export default function Footer() {
                     </div>
                 </form>
             </div>
-            <p className="font-bold text-sm text-[#737373] text-center bg-[#FAFAFA] px-12 py-6 lg:text-start lg:px-48">Made With Love By Finland All Right Reserved</p>
+            <p className="font-bold text-sm text-[#737373] text-center bg-[#FAFAFA] px-11 py-6 lg:text-start lg:px-48">Made With Love By Finland All Right Reserved</p>
         </footer>
     )
 }
