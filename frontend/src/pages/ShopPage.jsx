@@ -11,10 +11,25 @@ import { LayoutGrid, List } from 'lucide-react'
 export default function ShopPage() {
     const [products, setProducts] = useState([]);
     const [viewMode, setViewMode] = useState("grid");
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         setProducts(mockProducts)
     }, [])
+
+    const itemsPerPage = 12;
+    let totalPages = Math.ceil(products.length / itemsPerPage);
+    let pageNumbers = [];
+
+    for (let i = 0; i < totalPages; i++) {
+        pageNumbers.push(i + 1);
+    }
+
+    const handleFirst = () => setCurrentPage(1);
+    const handleNext = () => {
+    const nextPage = Math.min(currentPage + 1, totalPages)
+        setCurrentPage(nextPage)
+    }
 
     return (
         <>
@@ -65,22 +80,23 @@ export default function ShopPage() {
                     </div>
 
                 </div>
-                <ul className="flex flex-row justify-center gap-8 flex-wrap py-20 lg:pt-12">
+                <ul className={`flex ${viewMode==="grid" ? "flex-row justify-center" : "flex-col justify-start items-start "} w-full gap-8 flex-wrap py-20 lg:pt-12`}>
                     {
-                        products.map(product => {
+                        products.slice((currentPage - 1) * itemsPerPage, itemsPerPage * currentPage).map(product => {
                             return <li key={product.id} className="md:flex-1/5" >
                                 <ProductCard id={product.id} title={product.title} category={product.category} price={product.price} discountedPrice={product.discountedPrice}
-                                    image={product.image} colors={product.colors} />
+                                    image={product.image} colors={product.colors} viewMode={viewMode} />
                             </li>
                         })
                     }
                 </ul>
                 <div className="flex flex-row text-[#23A6F0] text-sm font-bold items-center justify-center shadow-lg min-w-4/5 md:min-w-1/3">
-                    <button type="button" className="border border-[#BDBDBD] flex-1 py-6 rounded-l-lg cursor-pointer">First</button>
-                    <button type="button" className="border border-[#BDBDBD] flex-1 py-6  cursor-pointer">1</button>
-                    <button type="button" className="border border-[#BDBDBD] flex-1 py-6  cursor-pointer">2</button>
-                    <button type="button" className="border border-[#BDBDBD] flex-1 py-6  cursor-pointer">3</button>
-                    <button type="button" className="border border-[#BDBDBD] flex-1 py-6 rounded-r-lg  cursor-pointer">Next</button>
+                    <button type="button" className={`border border-[#BDBDBD] flex-1 py-6 rounded-l-lg ${currentPage === 1 ? " text-[#BDBDBD] opacity-50" : "cursor-pointer"}`} onClick={handleFirst} disabled={currentPage===1}>First</button>
+                    {pageNumbers.map(pageNum => {
+                        return <button key={pageNum} type="button" className={`border border-[#BDBDBD] flex-1 py-6  cursor-pointer ${currentPage===pageNum ? "bg-[#23A6F0] text-white" : ""}`} onClick={()=> setCurrentPage(pageNum)}>{pageNum}</button>
+                    })
+                    }
+                    <button type="button" className={`border border-[#BDBDBD] flex-1 py-6 rounded-r-lg ${currentPage === totalPages ? "text-[#BDBDBD] opacity-50" : "cursor-pointer"}`} onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
                 </div>
             </section>
             <section className="px-11  lg:px-48 bg-[#FAFAFA] text-8xl text-[#737373]">

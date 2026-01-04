@@ -1,16 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
-export default function ProductCard({ id, title, category, price, discountedPrice, image, colors }) {
+export default function ProductCard({ id, title, category, price, discountedPrice, image, colors, viewMode }) {
 
     const [selectedColor, setSelectedColor] = useState("");
     return (
-        <article className="flex flex-col">
-            <Link to={`/products/${id}`} className="flex justify-center items-center">
+        <article className={`flex gap-6 ${viewMode==="list" ? "flex-row items-start" : "flex-col" }`}>
+            <Link to={`/products/${id}`} className="flex justify-center items-center flex-1">
                 <img className="object-cover w-full" src={image}>
                 </img>
             </Link>
-            <div className="flex flex-col gap-2.5 pt-6">
+            <div className="flex flex-col gap-2.5 flex-1">
                 <h3 className="font-bold text-[#252B42]">{title}</h3>
                 <p className="text-sm text-[#737373]">{category}</p>
                 <p className="text-[#BDBDBD] font-bold">{price} <span className="text-[#23856D]">{discountedPrice}</span></p>
