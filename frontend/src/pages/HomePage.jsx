@@ -67,8 +67,7 @@ export default function HomePage() {
                     {
                         products.slice(0, 8).map(product => {
                             return <li className="md:flex-1/5" key={product.id}>
-                                <ProductCard id={product.id} title={product.title} category={product.category} price={product.price} discountedPrice={product.discountedPrice}
-                                    image={product.image} colors={product.colors} />
+                                <ProductCard product={product} />
                             </li>
                         })
                     }

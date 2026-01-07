@@ -1,12 +1,13 @@
-import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import mockShopData from '../mockdata/mockShopData'
 import ShopCard from '../components/ShopCard'
 import ProductCard from '../components/ProductCard'
 import mockProducts from "../mockdata/mockProducts"
 import { useEffect, useState } from 'react'
-import { faPiedPiperHat, faHooli, faLyft, faStripe, faAws, faRedditAlien } from "@fortawesome/free-brands-svg-icons";
 import { LayoutGrid, List } from 'lucide-react'
+import BrandLogos from '../components/BrandLogos'
+import PageHeader from '../components/PageHeader'
 
 export default function ShopPage() {
     const [products, setProducts] = useState([]);
@@ -33,16 +34,8 @@ export default function ShopPage() {
 
     return (
         <>
-            <section className="flex flex-col bg-[#FAFAFA] px-11 py-8 gap-8 lg:px-48">
-                <div className="flex flex-col items-center text-[#252B42 gap-14 md:justify-between md:flex-row">
-                    <h2 className="font-bold text-2xl">Shop</h2>
-                    <p className="flex flex-row items-center gap-4 font-bold text-sm">
-                        <span>Home</span>
-                        <FontAwesomeIcon icon={faChevronRight} className="text-[#BDBDBD]" />
-                        <span className="text-[#737373]">Shop
-                        </span>
-                    </p>
-                </div>
+            <PageHeader/>
+            <section className="flex flex-col bg-[#FAFAFA] px-11 gap-8 lg:px-48">
                 <ul className="flex flex-col gap-4 pt-8 md:pt-0 md:flex-row">
                     {
                         mockShopData.map(data => {
@@ -84,8 +77,7 @@ export default function ShopPage() {
                     {
                         products.slice((currentPage - 1) * itemsPerPage, itemsPerPage * currentPage).map(product => {
                             return <li key={product.id} className="md:flex-1/5" >
-                                <ProductCard id={product.id} title={product.title} category={product.category} price={product.price} discountedPrice={product.discountedPrice}
-                                    image={product.image} colors={product.colors} viewMode={viewMode} />
+                                <ProductCard product={product} viewMode={viewMode} />
                             </li>
                         })
                     }
@@ -99,34 +91,7 @@ export default function ShopPage() {
                     <button type="button" className={`border border-[#BDBDBD] flex-1 py-6 rounded-r-lg ${currentPage === totalPages ? "text-[#BDBDBD] opacity-50" : "cursor-pointer"}`} onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
                 </div>
             </section>
-            <section className="px-11  lg:px-48 bg-[#FAFAFA] text-8xl text-[#737373]">
-                <ul className="flex flex-col justify-between items-center py-12.5 md:flex-row">
-                    <li>
-                        <FontAwesomeIcon icon={faHooli} />
-                    </li>
-
-                    <li>
-                        <FontAwesomeIcon icon={faLyft} />
-                    </li>
-
-                    <li>
-                        <FontAwesomeIcon icon={faPiedPiperHat} />
-                    </li>
-
-                    <li>
-                        <FontAwesomeIcon icon={faStripe} />
-                    </li>
-
-                    <li>
-                        <FontAwesomeIcon icon={faAws} />
-                    </li>
-
-                    <li>
-                        <FontAwesomeIcon icon={faRedditAlien} />
-                    </li>
-                </ul>
-                <hr className="text-[#E6E6E6]" />
-            </section>
+            <BrandLogos/>
         </>
     )
 }
