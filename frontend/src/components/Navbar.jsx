@@ -4,14 +4,15 @@ import { useState } from "react"
 
 export default function Navbar() {
 
-    const [isOpen, setIsOpen] = useState();
+    const [isShopOpen, setIsShopOpen] = useState(false);
+    const [isPagesOpen, setIsPagesOpen] = useState(false);
 
     const menCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
     const womenCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
 
     return (
 
-        <nav className="p-11 flex flex-row items-center flex-wrap justify-between md:py-3 md:flex-nowrap md:gap-3">
+        <nav className="p-11 flex flex-row items-center flex-wrap justify-between shadow-lg md:py-3 md:flex-nowrap md:gap-3">
             <Link
                 to="/"
                 className="text-2xl font-bold text-[#252B42] md:order-0 lg:mr-24 "
@@ -63,15 +64,15 @@ export default function Navbar() {
                 </li>
 
                 <li className="hidden md:flex relative"
-                    onMouseEnter={() => setIsOpen(true)}
-                    onMouseLeave={() => setIsOpen(false)}>
+                    onMouseEnter={() => setIsShopOpen(true)}
+                    onMouseLeave={() => setIsShopOpen(false)}>
                     <Link to="/shop"
                         className="hover:text-[#252B42] flex items-center cursor-pointer"
 
                     >
                         Shop <ChevronDown className="w-3.5 h-3.5 " />
                     </Link>
-                    {isOpen &&
+                    {isShopOpen &&
                         <div className="absolute z-999 top-full left-0 bg-white min-w-99 p-8 shadow-lg">
                             <ul className="flex flex-row gap-4 text-sm font-bold text-start">
                                 <li className="flex flex-col gap-8 flex-1">
@@ -80,8 +81,8 @@ export default function Navbar() {
                                     <ul className="flex flex-col gap-4">
                                         {womenCategories.map(category => {
                                             return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                        <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
-                                                    </li>
+                                                <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                            </li>
                                         })}
                                     </ul>
                                 </li>
@@ -90,8 +91,8 @@ export default function Navbar() {
                                     <ul className="flex flex-col gap-4">
                                         {menCategories.map(category => {
                                             return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                        <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
-                                                    </li>
+                                                <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                            </li>
                                         })}
                                     </ul>
                                 </li>
@@ -130,11 +131,41 @@ export default function Navbar() {
                     </Link>
                 </li>
 
-                <li className="hidden md:flex">
-                    <Link to="/pages" className="hover:text-[#252B42]">
-                        Pages
+                <li
+                    className="hidden md:flex relative"
+                    onMouseEnter={() => setIsPagesOpen(true)}
+                    onMouseLeave={() => setIsPagesOpen(false)}
+                >
+                    <Link
+                        to="/pages"
+                        className="hover:text-[#252B42] flex items-center cursor-pointer"
+                    >
+                        Pages <ChevronDown className="w-3.5 h-3.5" />
                     </Link>
+
+                    {isPagesOpen && (
+                        <div className="absolute z-999 top-full left-0 bg-white min-w-48 p-6 shadow-lg">
+                            <ul className="flex flex-col gap-4 text-sm font-bold text-start">
+                                <li className="text-[#737373] hover:text-[#252B42]">
+                                    <Link to="/pricing" className=" hover:text-[#252B42]">
+                                        Pricing
+                                    </Link>
+                                </li>
+                                <li className="text-[#737373] hover:text-[#252B42]">
+                                    <Link to="/products" className=" hover:text-[#252B42]">
+                                        Product
+                                    </Link>
+                                </li>
+                                <li className="text-[#737373] hover:text-[#252B42]">
+                                    <Link to="/team" onClick={() => setIsPagesOpen(false)}>
+                                        Team
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </li>
+
             </ul>
         </nav>
     )

@@ -1,0 +1,60 @@
+import teamImages from "./teamImages"
+
+const mockTeam = [
+    {
+        id:1,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[0]
+    },
+    {
+        id:2,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[1]
+    },
+    {
+        id:3,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[2]
+    },
+    {
+        id:4,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[3]
+    },
+    {
+        id:5,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[4]
+    },
+    {
+        id:6,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[5]
+    },
+    {
+        id:7,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[6]
+    },
+    {
+        id:8,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[7]
+    },
+    {
+        id:9,
+        userName:"Username",
+        profession:"Profession",
+        image:teamImages[8]
+    }
+]
+
+export default mockTeam;
