@@ -4,7 +4,7 @@ import ProductDetail from "../sections/ProductDetail"
 import { ChevronRight } from "lucide-react"
 import productImages from "../mockdata/productImages"
 import ProductCard from "../components/ProductCard"
-import BrandLogos from "../components/BrandLogos"
+import BrandLogos from "../sections/BrandLogos"
 import PageHeader from "../components/PageHeader"
 
 export default function ProductDetailPage() {

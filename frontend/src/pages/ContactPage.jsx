@@ -7,7 +7,7 @@ export default function ContactPage() {
     return (
         <>
             <section className="flex flex-col px-11 gap-8 md:flex-row lg:px-48">
-                <div className="flex flex-col justify-center items-center text-center text-[#252B42] gap-10 flex-1 md:items-start md:text-start">
+                <div className="flex flex-col justify-center items-center text-center text-[#252B42] gap-10 flex-1 py-6  md:py-0 md:items-start md:text-start">
                     <h1 className="font-bold">CONTACT US</h1>
                     <h3 className="text-4xl font-bold leading-20 md:text-6xl md:max-w-3/5 ">Get in touch today!</h3>
                     <p className="text-xl text-[#737373]">We know how large objects will act, but things on a small scale</p>
@@ -79,12 +79,12 @@ export default function ContactPage() {
                     </div>
                 </div>
             </section>
-            <div className="flex flex-col justify-center items-center text-center text-[#252B42] font-bold gap-8 py-28">
+            <section className="flex flex-col justify-center items-center text-center text-[#252B42] font-bold gap-8 px-11 py-28 lg:px-48">
                 <FontAwesomeIcon icon={faArrowTurnDown} className="text-[#23A6F0] text-7xl" />
                 <p>We Can't WAIT TO MEET YOU</p>
                 <p className="text-6xl">Let's Talk</p>
                 <button className="bg-[#23A6F0] border border-[#23A6F0] px-10 py-4 rounded-sm text-sm text-white font-bold cursor-pointer hover:bg-white hover:text-[#23A6F0]">Try it free now</button>
-            </div>
+            </section>
         </>
     )
 }

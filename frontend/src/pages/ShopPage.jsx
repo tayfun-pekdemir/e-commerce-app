@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard'
 import mockProducts from "../mockdata/mockProducts"
 import { useEffect, useState } from 'react'
 import { LayoutGrid, List } from 'lucide-react'
-import BrandLogos from '../components/BrandLogos'
+import BrandLogos from '../sections/BrandLogos'
 import PageHeader from '../components/PageHeader'
 
 export default function ShopPage() {

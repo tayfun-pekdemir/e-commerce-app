@@ -35,9 +35,9 @@ export default function TeamPage() {
                     </div>
                 </div>
             </section >
-            <section className="flex flex-col items-center justify-center py-11 px-11 md:p-28 lg:px-48">
+            <section className="flex flex-col items-center justify-center p-11 md:py-28 lg:px-48">
                 <div className="flex items-center justify-center text-center pb-11 md:pb-28">
-                    <h2 className="text-[#252B42] text-4xl font-bold max-w-4/5 md:max-w-full">Meet Our Team</h2>
+                    <h2 className="text-[#252B42] text-4xl font-bold leading-12.5 max-w-4/5 md:max-w-full">Meet Our Team</h2>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-9 md:flex-row md:flex-wrap md:gap-8 ">
                     { mockTeam.map( m => {
