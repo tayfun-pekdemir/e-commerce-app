@@ -22,7 +22,7 @@ export default function Navbar() {
 
             <div className="flex justify-end items-center gap-2 md:order-2 md:text-[#23A6F0] lg:gap-5">
                 <Link
-                    to="/login"
+                    to="/signup"
                     className="flex flex-row items-center justify-center gap-1 md:hover:text-[#1D8BD3]"
                 >
                     <User className="w-6 h-6 md:w-3.5 md:h-3.5" />
