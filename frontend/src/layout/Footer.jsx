@@ -81,7 +81,7 @@ export default function Footer() {
                     </label>
                     <div className="flex flex-col gap-0">
                         <div className="flex">
-                            <input id="email" type="email" placeholder="Your Email" className="border border-[#E6E6E6] border-r-0 rounded-l-sm min-w-0 px-4 py-2 placeholder:text-sm placeholder:text-[#737373] focus:placeholder-transparent focus:border-[#23A6F0] focus:outline-none" />
+                            <input id="sub-email" type="email" placeholder="Your Email" className="border border-[#E6E6E6] border-r-0 rounded-l-sm min-w-0 px-4 py-2 placeholder:text-sm placeholder:text-[#737373] focus:placeholder-transparent focus:border-[#23A6F0] focus:outline-none" />
                             <button type="submit" className="bg-[#23A6F0] rounded-r-sm px-4 py-2 text-white text-sm hover:bg-[#1D8BD3]">
                                 Subscribe
                             </button>

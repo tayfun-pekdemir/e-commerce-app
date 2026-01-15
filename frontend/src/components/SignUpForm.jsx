@@ -1,22 +1,28 @@
-import { useForm } from "react-hook-form"
-import { useState, useEffect } from "react"
-import { useHistory } from "react-router-dom"
-import { getRoles, signup } from "../api/auth"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import { toast } from "react-toastify"
+import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { signup } from "../api/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchRoles } from "../store/actions/clientActions";
 
 export default function SignupForm() {
     const history = useHistory();
-    const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const selectedRole = watch("role_id");
 
+    const dispatch = useDispatch();
+    const roles = useSelector(state => state.clientRed.roles);
+
     useEffect(() => {
-        getRoles().then(res => setRoles(res.data)).catch(err => console.log(err));
-    }, []);
+        if (roles.length === 0) { 
+            dispatch(fetchRoles());
+        }
+    }, [dispatch, roles.length]);
 
     const onSubmit = async (data) => {
         setLoading(true);
