@@ -1,6 +1,9 @@
-import { User, Search, ShoppingCart, Menu, ChevronDown, Heart } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { useState } from "react"
+import { User, Search, ShoppingCart, Menu, ChevronDown, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Gravatar from "react-gravatar";
+import { logoutUser } from "../store/actions/clientActions";
 
 export default function Navbar() {
 
@@ -9,6 +12,9 @@ export default function Navbar() {
 
     const menCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
     const womenCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
+
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.clientRed.user);
 
     return (
 
@@ -21,15 +27,29 @@ export default function Navbar() {
             </Link>
 
             <div className="flex justify-end items-center gap-2 md:order-2 md:text-[#23A6F0] lg:gap-5">
-                <Link
-                    to="/signup"
-                    className="flex flex-row items-center justify-center gap-1 md:hover:text-[#1D8BD3]"
-                >
-                    <User className="w-6 h-6 md:w-3.5 md:h-3.5" />
-                    <span className="hidden md:flex text-center font-bold text-sm whitespace-nowrap">
-                        Login / Register
-                    </span>
-                </Link>
+                {user?.token ?
+                    (
+                        <div className="flex flex-row items-center justify-center gap-1">
+                            <div className="flex flex-row gap-2 items-center justify-center">
+                                <div className="w-6 h-6">
+                                    <Gravatar email={user.email} className="rounded-full" />
+                                </div>
+                                <span className="hidden font-bold text-sm whitespace-nowrap md:flex">{user.name}</span>
+                            </div>
+                            <span className="hidden md:flex">/</span>
+                            <button onClick={() => dispatch(logoutUser())} className="text-sm hidden cursor-pointer whitespace-nowrap font-bold md:flex" > Log out </button>
+                        </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="flex flex-row items-center justify-center gap-1 md:hover:text-[#1D8BD3]"
+                        >
+                            <User className="w-6 h-6 md:w-3.5 md:h-3.5" />
+                            <span className="hidden text-center font-bold text-sm whitespace-nowrap md:flex">
+                                Login / Register
+                            </span>
+                        </Link>
+                    )}
 
                 <Link to="/search" className="flex items-center justify-center md:hover:text-[#1D8BD3]">
                     <Search className="w-6 h-6 md:w-4 md:h-4" />
@@ -77,21 +97,21 @@ export default function Navbar() {
                             <ul className="flex flex-row gap-4 text-sm font-bold text-start">
                                 <li className="flex flex-col gap-8 flex-1">
                                     <h3 className="text-[#252B42] ">
-                                        <Link to="/category/women" onClick={() => setIsOpen(false)}>Kadın</Link></h3>
+                                        <Link to="/category/women" onClick={() => setIsShopOpen(false)}>Kadın</Link></h3>
                                     <ul className="flex flex-col gap-4">
                                         {womenCategories.map(category => {
                                             return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                                <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsShopOpen(false)}>{category}</Link>
                                             </li>
                                         })}
                                     </ul>
                                 </li>
                                 <li className="flex flex-col gap-8 flex-1">
-                                    <h3 className="text-[#252B42]"><Link to="/category/men" onClick={() => setIsOpen(false)}>Erkek</Link></h3>
+                                    <h3 className="text-[#252B42]"><Link to="/category/men" onClick={() => setIsShopOpen(false)}>Erkek</Link></h3>
                                     <ul className="flex flex-col gap-4">
                                         {menCategories.map(category => {
                                             return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsOpen(false)}>{category}</Link>
+                                                <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsShopOpen(false)}>{category}</Link>
                                             </li>
                                         })}
                                     </ul>

@@ -5,6 +5,8 @@ export const SET_ROLES = "SET_ROLES";
 export const SET_THEME = "SET_THEME";
 export const SET_LANGUAGE = "SET_LANGUAGE";
 import { getRoles as getRolesAPI } from "../../api/auth";
+import { toast } from "react-toastify";
+import axiosInstance, { setAuthToken } from "../../api/axios";
 
 export const setUser = ( user ) => {
   return { type: SET_USER, payload: user };
@@ -35,6 +37,60 @@ export const fetchRoles = () => async (dispatch) => {
     const res = await getRolesAPI();
     dispatch(setRoles(res.data)); 
   } catch (err) {
-    console.error("Failed to fetch roles:", err);
+
   }
+};
+
+export const loginUser = ({ email, password, remember }) => async (dispatch) => {
+  try {
+
+    const res = await axiosInstance.post("/login", { email, password });
+    const { token, name, role_id } = res.data;
+
+    const user = { name, email, role_id, token };
+
+    dispatch(setUser(user));
+
+    setAuthToken(token);
+
+    if (remember) localStorage.setItem("token", token);
+
+    toast.success("Login successful!");
+    return user;
+
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Login failed!");
+    
+  }
+};
+
+export const verifyUser = () => async (dispatch) => {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  setAuthToken(token);
+
+  try {
+    const res = await axiosInstance.get("/verify");
+    const { name, email, role_id, token: newToken } = res.data;
+
+    const user = { name, email, role_id, token: newToken };
+
+    dispatch(setUser(user));
+    setAuthToken(newToken);
+    localStorage.setItem("token", newToken);
+  } catch (err) {
+
+    localStorage.removeItem("token");
+    setAuthToken(null);
+    dispatch(setUser(null));
+
+  }
+};
+
+export const logoutUser = () => (dispatch) => {
+  dispatch(setUser(null));
+  localStorage.removeItem("token");
+  setAuthToken(null);
+  
 };

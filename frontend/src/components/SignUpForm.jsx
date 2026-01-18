@@ -7,6 +7,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRoles } from "../store/actions/clientActions";
+import { Link } from "react-router-dom";
 
 export default function SignupForm() {
     const history = useHistory();
@@ -212,6 +213,9 @@ export default function SignupForm() {
                         )}
                     </button>
                 </form>
+                <div className="flex flex-row gap-2 text-sm">
+                    <p>You already have an account?</p><Link to="/login" className="text-[#23A6F0] hover:text-[#1D8BD3]">Login</Link>
+                </div>
             </div>
         </div>
     );
