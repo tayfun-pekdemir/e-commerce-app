@@ -5,6 +5,7 @@ export const SET_LIMIT = "SET_LIMIT";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
 export const SET_FETCHSTATE = "SET_FETCHSTATE";
+import { getCategories, getProducts } from "../../api/product";
 
 export const setCategories = ( categories ) => {
     return { type: SET_CATEGORIES, payload: categories };
@@ -32,4 +33,34 @@ export const setFilter = ( filter ) => {
 
 export const setFetchState = ( fetchState ) => {
     return { type: SET_FETCHSTATE, payload:fetchState };
+};
+
+export const fetchCategories = () => async (dispatch) => {
+  dispatch(setFetchState("FETCHING"));
+
+  try {
+    const res = await getCategories();
+    dispatch(setCategories(res.data));
+    dispatch(setFetchState("FETCHED"));
+  } catch (error) {
+    dispatch(setFetchState("FAILED"));
+  }
+};
+
+export const fetchProducts = ({ category, filter, sort }={}) => async (dispatch) => {
+    dispatch(setFetchState("FETCHING"));
+
+    try {
+        const res = await getProducts({
+            category,
+            filter,
+            sort
+        });
+
+        dispatch(setProductList(res.data.products));
+        dispatch(setTotal(res.data.total));
+        dispatch(setFetchState("FETCHED"));
+    } catch (error) {
+        dispatch(setFetchState("FAILED"));
+    }
 };

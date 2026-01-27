@@ -16,16 +16,27 @@ import LoginPage from "./pages/LoginPage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { verifyUser } from "./store/actions/clientActions";
+import { useSelector } from "react-redux";
+import { fetchCategories, fetchProducts } from "./store/actions/productActions";
 
 function App() {
-
+  const categories = useSelector(state => state.productRed.categories);
+  const products = useSelector(state => state.productRed.productList);
+  const fetchState = useSelector(state => state.productRed.fetchState);
   const dispatch = useDispatch();
 
     useEffect(() => {
 
     dispatch(verifyUser());
-  }, [dispatch]);
+    if(!categories?.length){
+      dispatch(fetchCategories());
+    };
 
+    if (products?.length === 0 && fetchState !== "FETCHING") {
+    dispatch(fetchProducts());
+    console.log("products: " + products);
+  }
+  }, []);
 
   return (
     <>
@@ -38,8 +49,8 @@ function App() {
       <PageContent>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/products/:id" component={ProductDetailPage} />
+          <Route exact path="/shop/:gender/:categoryName/:categoryId" component={ShopPage} />
+          <Route exact path="/shop/:gender/:categoryName/:categoryId/:productSlug/:id" component={ProductDetailPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/team" component={TeamPage} />
           <Route exact path="/about" component={AboutUsPage} />

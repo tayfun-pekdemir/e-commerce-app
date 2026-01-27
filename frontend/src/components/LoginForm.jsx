@@ -11,7 +11,7 @@ export default function LoginForm() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-     const onSubmit = async (data) => {
+    const onSubmit = async (data) => {
         setLoading(true);
         try {
 
@@ -83,10 +83,15 @@ export default function LoginForm() {
                             "Login"
                         )}
                     </button>
-                    <div className="flex flex-row gap-1 items-center justify-end text-sm">
-                        <input id="remember" type="checkbox"
-                            {...register("remember")} className="accent-[#23A6F0]" />
-                        <label htmlFor="remember">Remember me</label>
+                    <div className="flex flex-row gap-2 items-center justify-end text-sm">
+                        <label className="flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                {...register("remember")}
+                                className="w-5 h-5 rounded-sm border-2 border-[#23A6F0] checked:bg-[#23A6F0] checked:border-[#23A6F0] appearance-none checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center checked:before:text-xs"
+                            />
+                            <span className="ml-2">Remember me</span>
+                        </label>
                     </div>
                 </form>
                 <div className="flex flex-row gap-2 text-sm">

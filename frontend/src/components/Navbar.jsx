@@ -10,11 +10,21 @@ export default function Navbar() {
     const [isShopOpen, setIsShopOpen] = useState(false);
     const [isPagesOpen, setIsPagesOpen] = useState(false);
 
-    const menCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
-    const womenCategories = ["T-shirt", "Belts", "Shoes", "Cosmetics", "Bags", "Hats"];
-
     const dispatch = useDispatch();
     const user = useSelector(state => state.clientRed.user);
+    const categories = useSelector(state => state.productRed.categories);
+
+    const getCategoryLink = (category) => {
+        
+        if (!category) return "#";
+
+        const gender = category.gender === "k" ? "kadin" : "erkek";
+        const categoryName = category.code.split(":")[1].toLowerCase();
+        const categoryId = category.id;
+
+        return `/shop/${gender}/${categoryName}/${categoryId}`;
+    }
+
 
     return (
 
@@ -97,23 +107,27 @@ export default function Navbar() {
                             <ul className="flex flex-row gap-4 text-sm font-bold text-start">
                                 <li className="flex flex-col gap-8 flex-1">
                                     <h3 className="text-[#252B42] ">
-                                        <Link to="/category/women" onClick={() => setIsShopOpen(false)}>Kadın</Link></h3>
+                                        <Link to="/shop/kadin" onClick={() => setIsShopOpen(false)}>Kadın</Link></h3>
                                     <ul className="flex flex-col gap-4">
-                                        {womenCategories.map(category => {
-                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                <Link to={`/category/women/${category.toLowerCase()}`} onClick={() => setIsShopOpen(false)}>{category}</Link>
+                                        {categories.filter(category => (category.gender === "k")).map(category => {
+
+                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category.id}>
+                                                <Link to={getCategoryLink(category)} onClick={() => setIsShopOpen(false)}>{category.title}</Link>
                                             </li>
-                                        })}
+                                        }
+                                        )}
                                     </ul>
                                 </li>
                                 <li className="flex flex-col gap-8 flex-1">
-                                    <h3 className="text-[#252B42]"><Link to="/category/men" onClick={() => setIsShopOpen(false)}>Erkek</Link></h3>
+                                    <h3 className="text-[#252B42]"><Link to="/shop/erkek" onClick={() => setIsShopOpen(false)}>Erkek</Link></h3>
                                     <ul className="flex flex-col gap-4">
-                                        {menCategories.map(category => {
-                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category}>
-                                                <Link to={`/category/men/${category.toLowerCase()}`} onClick={() => setIsShopOpen(false)}>{category}</Link>
+                                        {categories.filter(category => (category.gender === "e")).map(category => {
+
+                                            return <li className="text-[#737373] hover:text-[#252B42]" key={category.id}>
+                                                <Link to={getCategoryLink(category)} onClick={() => setIsShopOpen(false)}>{category.title}</Link>
                                             </li>
-                                        })}
+                                        }
+                                        )}
                                     </ul>
                                 </li>
                             </ul>

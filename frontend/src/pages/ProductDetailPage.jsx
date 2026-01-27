@@ -1,32 +1,42 @@
-import mockProducts from "../mockdata/mockProducts"
-import { useParams } from "react-router-dom"
-import ProductDetail from "../sections/ProductDetail"
-import { ChevronRight } from "lucide-react"
-import productImages from "../mockdata/productImages"
-import ProductCard from "../components/ProductCard"
-import BrandLogos from "../sections/BrandLogos"
-import PageHeader from "../components/PageHeader"
+import { useParams } from "react-router-dom";
+import ProductDetail from "../sections/ProductDetail";
+import { ChevronRight } from "lucide-react";
+import productImages from "../mockdata/productImages";
+import ProductCard from "../components/ProductCard";
+import BrandLogos from "../sections/BrandLogos";
+import PageHeader from "../components/PageHeader";
+import { useSelector } from "react-redux";
 
 export default function ProductDetailPage() {
+
+    const products = useSelector(state => state.productRed.productList);
+    const fetchState = useSelector(state => state.productRed.fetchState);
+
     const { id } = useParams();
 
-    const product = mockProducts.find(p => p.id === Number(id));
+    const currentProduct = products.find(p => p.id === Number(id));
 
-    if (!product) {
+    const sameCategory = products.filter(
+        p => p.category_id === currentProduct.category_id && p.id !== currentProduct.id);
+
+    const bestSellers = [...sameCategory].sort((a, b) => b.sell_count - a.sell_count);
+
+    if (fetchState === "FETCHING" || products.length === 0) {
+        return (
+            <div className="flex justify-center items-center min-h-75">
+                <span className="w-8 h-8 border-4 border-[#252B42] border-t-transparent rounded-full animate-spin"></span>
+            </div>
+        )
+    }
+
+    if (!currentProduct) {
         return <div>Product not found.</div>
     }
 
-    const products = mockProducts;
-
-    const sameCategory = products.filter(
-        p => p.category === product.category && p.id !== product.id);
-
-    const bestSellers = [...sameCategory].sort((a,b)=> b.salesCount - a.salesCount);
-
     return (
-        <>  
-            <PageHeader/>
-            <ProductDetail product={product} />
+        <>
+            <PageHeader />
+            <ProductDetail product={currentProduct} />
             <section className="flex flex-col px-11 py-8 gap-8 lg:px-48">
                 <div className="flex flex-row text-[#737373] font-bold gap-2 text-xs flex-wrap justify-evenly items-center md:justify-center">
                     <p className="underline font-600">Description</p>
@@ -68,17 +78,17 @@ export default function ProductDetailPage() {
             <section className="flex flex-col gap-6 p-11 bg-[#FAFAFA] lg:px-48">
                 <h2 className="text-[#252B42] text-2xl font-bold text-center md:text-start">BESTSELLER PRODUCTS</h2>
                 <hr className="text-[#ECECEC]"></hr>
-                <ul className="flex flex-row gap-8 flex-wrap justify-center items-center">
+                <ul className="flex flex-row justify-start gap-8 flex-wrap min-h-50 md:items-stretch">
                     {
                         bestSellers.slice(0, 8).map(product => {
-                            return <li className="md:flex-1/5" key={product.id}>
-                                <ProductCard product={product} isDetailPage={true}/>
+                            return <li className="flex-none basis-full sm:basis-[calc((100%-3rem)/2)] md:basis-[calc((100%-3rem*3)/4)]" key={product.id}>
+                                <ProductCard product={product} isDetailPage={true} />
                             </li>
                         })
                     }
                 </ul>
             </section>
-            <BrandLogos/>
+            <BrandLogos />
         </>
     )
 };

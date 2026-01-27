@@ -1,23 +1,20 @@
-import HeroSlider from "../components/HeroSlider"
-import ProductCard from "../components/ProductCard"
-import mockProducts from "../mockdata/mockProducts"
-import { useState, useEffect } from "react"
-import mockCategories from "../mockdata/mockCategories"
-import CategoryCard from "../components/CategoryCard"
-import ProductSlider from "../components/ProductSlider"
-import PromoSection from "../sections/PromoSection"
-import BlogCard from "../components/BlogCard"
-import mockBlogs from "../mockdata/mockBlogs"
+import HeroSlider from "../components/HeroSlider";
+import ProductCard from "../components/ProductCard";
+import { useState } from "react";
+import mockCategories from "../mockdata/mockCategories";
+import CategoryCard from "../components/CategoryCard";
+import ProductSlider from "../components/ProductSlider";
+import PromoSection from "../sections/PromoSection";
+import BlogCard from "../components/BlogCard";
+import mockBlogs from "../mockdata/mockBlogs";
+import { useSelector } from "react-redux";
+
 
 export default function HomePage() {
 
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        setProducts(mockProducts)
-        setCategories(mockCategories)
-    }, [])
+    const products = useSelector(state => state.productRed.productList);
+    const fetchState = useSelector(state => state.productRed.fetchState);
+    const [categories,] = useState(mockCategories);
 
     return (
         <>
@@ -63,14 +60,23 @@ export default function HomePage() {
                     </h3>
                     <p className="text-sm text-[#737373]">Problems trying to resolve the conflict between</p>
                 </div>
-                <ul className="flex flex-row justify-center gap-8 flex-wrap ">
+                <ul className="flex flex-row justify-center gap-8 flex-wrap min-h-50 md:items-stretch">
                     {
-                        products.slice(0, 8).map(product => {
-                            return <li className="md:flex-1/5" key={product.id}>
-                                <ProductCard product={product} />
+                        fetchState === "FETCHING" ? (
+                            <li>
+                                <div className="flex justify-center items-center min-h-75">
+                                    <span className="w-8 h-8 border-4 border-[#252B42] border-t-transparent rounded-full animate-spin"></span>
+                                </div>
                             </li>
-                        })
-                    }
+
+                        ) : (
+                            [...products].sort((a, b) => b.sell_count - a.sell_count).slice(0, 8).map(product => {
+                                
+                                return <li className="flex-none basis-full sm:basis-[calc((100%-3rem)/2)] md:basis-[calc((100%-3rem*3)/4)]" key={product.id}>
+                                    <ProductCard product={product} />
+                                </li>
+                            })
+                        )}
                 </ul>
             </section>
             <ProductSlider />
