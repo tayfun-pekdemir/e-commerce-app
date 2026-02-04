@@ -5,23 +5,35 @@ import productImages from "../mockdata/productImages";
 import ProductCard from "../components/ProductCard";
 import BrandLogos from "../sections/BrandLogos";
 import PageHeader from "../components/PageHeader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoryBestSellers, fetchProductById } from "../store/actions/productActions";
+import { useEffect } from "react";
 
 export default function ProductDetailPage() {
 
-    const products = useSelector(state => state.productRed.productList);
     const fetchState = useSelector(state => state.productRed.fetchState);
+    const currentProduct = useSelector(state => state.productRed.currentProduct);
+    const categoryBestSellers = useSelector(state => state.productRed.categoryBestSellers);
+    const { productId } = useParams();
 
-    const { id } = useParams();
+    const dispatch = useDispatch();
 
-    const currentProduct = products.find(p => p.id === Number(id));
+    useEffect(() => {
+        dispatch(fetchProductById(productId));
+    }, [dispatch, productId]);
 
-    const sameCategory = products.filter(
-        p => p.category_id === currentProduct.category_id && p.id !== currentProduct.id);
+    useEffect(() => {
+        if (currentProduct) {
+            dispatch(fetchCategoryBestSellers({
+                category: currentProduct.category_id,
+                currentProductId: currentProduct.id,
+                limit: 8,
+                sort: "sell_count:desc"
+            }));
+        }
+    }, [dispatch, currentProduct]);
 
-    const bestSellers = [...sameCategory].sort((a, b) => b.sell_count - a.sell_count);
-
-    if (fetchState === "FETCHING" || products.length === 0) {
+    if (fetchState === "FETCHING") {
         return (
             <div className="flex justify-center items-center min-h-75">
                 <span className="w-8 h-8 border-4 border-[#252B42] border-t-transparent rounded-full animate-spin"></span>
@@ -30,7 +42,7 @@ export default function ProductDetailPage() {
     }
 
     if (!currentProduct) {
-        return <div>Product not found.</div>
+        return <div className="text-center">Product not found.</div>
     }
 
     return (
@@ -80,7 +92,7 @@ export default function ProductDetailPage() {
                 <hr className="text-[#ECECEC]"></hr>
                 <ul className="flex flex-row justify-start gap-8 flex-wrap min-h-50 md:items-stretch">
                     {
-                        bestSellers.slice(0, 8).map(product => {
+                        categoryBestSellers.map(product => {
                             return <li className="flex-none basis-full sm:basis-[calc((100%-3rem)/2)] md:basis-[calc((100%-3rem*3)/4)]" key={product.id}>
                                 <ProductCard product={product} isDetailPage={true} />
                             </li>

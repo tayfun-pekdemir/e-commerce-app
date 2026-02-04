@@ -49,8 +49,9 @@ function App() {
       <PageContent>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/shop/:gender/:categoryName/:categoryId" component={ShopPage} />
-          <Route exact path="/shop/:gender/:categoryName/:categoryId/:productSlug/:id" component={ProductDetailPage} />
+          <Route exact path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId" component={ProductDetailPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/team" component={TeamPage} />
           <Route exact path="/about" component={AboutUsPage} />

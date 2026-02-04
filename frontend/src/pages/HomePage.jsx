@@ -1,20 +1,29 @@
 import HeroSlider from "../components/HeroSlider";
 import ProductCard from "../components/ProductCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import mockCategories from "../mockdata/mockCategories";
 import CategoryCard from "../components/CategoryCard";
 import ProductSlider from "../components/ProductSlider";
 import PromoSection from "../sections/PromoSection";
 import BlogCard from "../components/BlogCard";
 import mockBlogs from "../mockdata/mockBlogs";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBestSellers } from "../store/actions/productActions";
 
 export default function HomePage() {
 
-    const products = useSelector(state => state.productRed.productList);
+    const bestSellers = useSelector(state => state.productRed.bestSellers);
     const fetchState = useSelector(state => state.productRed.fetchState);
     const [categories,] = useState(mockCategories);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(fetchBestSellers({
+            sort:"sell_count:desc",
+            limit:8
+        }
+        ))
+    },[dispatch]);
 
     return (
         <>
@@ -70,7 +79,7 @@ export default function HomePage() {
                             </li>
 
                         ) : (
-                            [...products].sort((a, b) => b.sell_count - a.sell_count).slice(0, 8).map(product => {
+                            bestSellers.map(product => {
                                 
                                 return <li className="flex-none basis-full sm:basis-[calc((100%-3rem)/2)] md:basis-[calc((100%-3rem*3)/4)]" key={product.id}>
                                     <ProductCard product={product} />

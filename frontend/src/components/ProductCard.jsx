@@ -29,15 +29,15 @@ export default function ProductCard({ product, viewMode, isDetailPage }) {
         const categoryId = category.id;
         const productId = product.id;
 
-        const productSlug = slugify(product.name);
+        const productNameSlug = slugify(product.name);
 
-        return `/shop/${gender}/${categoryName}/${categoryId}/${productSlug}/${productId}`;
+        return `/shop/${gender}/${categoryName}/${categoryId}/${productNameSlug}/${productId}`;
     }
 
     const discount = 0.25;
 
     return (
-        <article className={`flex bg-white flex-col h-full ${viewMode === "list" ? "flex-row max-h-122" : ""}`}>
+        <article className={`flex bg-white flex-col h-full transition duration-300 hover:shadow-lg hover:-translate-y-1 ${viewMode === "list" ? "flex-row max-h-122" : ""}`}>
             <Link to={getProductLink(product)} className={`${viewMode === "list" ? "w-1/2" : "w-full aspect-4/5 overflow-hidden"}`}>
                 <div className="h-full w-full">
                     <img className="object-cover object-center w-full h-full" src={product.images[0].url}/>

@@ -14,7 +14,7 @@ export default function ShopCard({ category }) {
     }
 
     return (
-        <article>
+        <article className="transition duration-300 hover:shadow-lg hover:-translate-y-1">
             <Link to={getCategoryLink(category)} className="bg-cover bg-center min-h-75 flex flex-col items-center justify-center font-bold text-white gap-7"
                 style={{ backgroundImage: `url(${category.img})` }}>
                 <h3>{category.title.toUpperCase()}</h3>
