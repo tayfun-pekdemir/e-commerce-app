@@ -1,44 +1,19 @@
 import { Link } from "react-router-dom";
 import ColorSelection from "./ColorSelection";
 import { useSelector } from "react-redux";
+import { getProductLink } from "../utils/productLink";
 
 export default function ProductCard({ product, viewMode, isDetailPage }) {
 
     const categories = useSelector(state => state.productRed.categories);
 
-    const slugify = (text) =>
-        text
-            .toLowerCase()
-            .replace(/ğ/g, "g")
-            .replace(/ü/g, "u")
-            .replace(/ş/g, "s")
-            .replace(/ı/g, "i")
-            .replace(/ö/g, "o")
-            .replace(/ç/g, "c")
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "");
-
-    const getProductLink = (product) => {
-
-        const category = categories.find(category => product.category_id === category.id);
-
-        if (!category) return "#";
-
-        const gender = category.gender === "k" ? "kadin" : "erkek";
-        const categoryName = category.code.split(":")[1].toLowerCase();
-        const categoryId = category.id;
-        const productId = product.id;
-
-        const productNameSlug = slugify(product.name);
-
-        return `/shop/${gender}/${categoryName}/${categoryId}/${productNameSlug}/${productId}`;
-    }
+    const productLink = getProductLink(product, categories);
 
     const discount = 0.25;
 
     return (
         <article className={`flex bg-white flex-col h-full transition duration-300 hover:shadow-lg hover:-translate-y-1 ${viewMode === "list" ? "flex-row max-h-122" : ""}`}>
-            <Link to={getProductLink(product)} className={`${viewMode === "list" ? "w-1/2" : "w-full aspect-4/5 overflow-hidden"}`}>
+            <Link to={productLink} className={`${viewMode === "list" ? "w-1/2" : "w-full aspect-4/5 overflow-hidden"}`}>
                 <div className="h-full w-full">
                     <img className="object-cover object-center w-full h-full" src={product.images[0].url}/>
                 </div>

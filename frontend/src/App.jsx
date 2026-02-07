@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { verifyUser } from "./store/actions/clientActions";
 import { useSelector } from "react-redux";
 import { fetchCategories, fetchProducts } from "./store/actions/productActions";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 
 function App() {
   const categories = useSelector(state => state.productRed.categories);
@@ -52,6 +53,7 @@ function App() {
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/shop/:gender/:categoryName/:categoryId" component={ShopPage} />
           <Route exact path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId" component={ProductDetailPage} />
+          <Route exact path="/cart" component={ShoppingCartPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/team" component={TeamPage} />
           <Route exact path="/about" component={AboutUsPage} />

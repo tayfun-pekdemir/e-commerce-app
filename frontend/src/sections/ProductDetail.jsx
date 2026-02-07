@@ -1,8 +1,10 @@
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Thumbs } from "swiper/modules"
-import { useState } from "react"
-import { Eye, ShoppingCart, Heart, Star } from 'lucide-react'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Thumbs } from "swiper/modules";
+import { useState } from "react";
+import { Eye, ShoppingCart, Heart, Star } from "lucide-react";
 import ColorSelection from "../components/ColorSelection";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/actions/shoppingCartActions";
 
 export default function ProductDetail({ product }) {
 
@@ -13,6 +15,9 @@ export default function ProductDetail({ product }) {
     const stars = [1, 2, 3, 4, 5];
 
     const discount = 0.25;
+
+    const dispatch = useDispatch();
+
 
     return (
         <section className="flex flex-col gap-8 justify-center items-center md:flex-row md:items-stretch md:flex-wrap md:gap-0 md:justify-start bg-[#FAFAFA] px-11 pb-8 lg:px-48">
@@ -73,14 +78,14 @@ export default function ProductDetail({ product }) {
                 <p className="text-[#858585] text-sm">{product.description}</p>
                 <hr className="text-[#BDBDBD] mb-1"></hr>
                 <div className="flex items-center justify-start gap-2.5">
-                    <ColorSelection/>
+                    <ColorSelection />
                 </div>
                 <div className="flex flex-row items-center gap-2.5 mt-8">
                     <button className="font-bold text-white text-sm bg-[#23A6F0] py-3 px-3.5 rounded-sm">Select Options</button>
                     <div className="flex flex-row gap-2.5 items-center">
-                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9"><Heart strokeWidth={1} /></button>
-                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9"><ShoppingCart strokeWidth={1} /></button>
-                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9"><Eye fill="black" strokeWidth={1.75} stroke="white" /></button>
+                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9 cursor-pointer transition duration-300 hover:shadow-lg"><Heart strokeWidth={1} /></button>
+                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9 cursor-pointer transition duration-300 hover:shadow-lg" onClick={() => dispatch(addToCart(product))}><ShoppingCart strokeWidth={1} /></button>
+                        <button className="flex rounded-full border border-[#E8E8E8] justify-center items-center h-9 w-9 cursor-pointer transition duration-300 hover:shadow-lg"><Eye fill="black" strokeWidth={1.75} stroke="white" /></button>
                     </div>
                 </div>
             </div>
