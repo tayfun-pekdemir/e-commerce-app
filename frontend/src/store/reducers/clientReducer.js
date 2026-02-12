@@ -1,4 +1,4 @@
-import { SET_USER, SET_ADDRESSLIST, SET_CREDITCARDS, SET_ROLES, SET_THEME, SET_LANGUAGE } from "../actions/clientActions";
+import { SET_USER, SET_ADDRESSLIST, SET_CREDITCARDS, SET_ROLES, SET_THEME, SET_LANGUAGE, ADD_ADDRESS, UPDATE_ADDRESS, DELETE_ADDRESS } from "../actions/clientActions";
 
 const initialState={
   user: null,
@@ -30,6 +30,18 @@ const clientReducer = ( state = initialState, action )=> {
 
         case SET_LANGUAGE:
             return {...state, language: action.payload};
+
+        case ADD_ADDRESS:
+            return {...state, 
+                addressList: [...state.addressList, action.payload]};
+
+        case UPDATE_ADDRESS:
+            return {...state, 
+                addressList: state.addressList.map(address => address.id === action.payload.id ? action.payload : address)};
+
+        case DELETE_ADDRESS:
+            return {...state, 
+                addressList: state.addressList.filter(address => address.id !== action.payload )};
 
         default:
             return state;

@@ -32,7 +32,7 @@ export default function CartItem({ item }) {
                     <input
                         type="checkbox"
                         checked={checked}
-                        className="w-5 h-5 rounded-sm border-2 border-[#23A6F0] checked:bg-[#23A6F0] checked:border-[#23A6F0] appearance-none checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center checked:before:text-xs"
+                        className="w-5 h-5 rounded-sm border-2 border-[#23A6F0] cursor-pointer checked:bg-[#23A6F0] checked:border-[#23A6F0] appearance-none checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center checked:before:text-xs"
                         onChange={() => dispatch(toggleChecked(product.id))}
                     />
                     <Link to={productLink} className="flex flex-col gap-4 items-center hover:bg-[#FAFAFA] transition rounded-lg p-4 md:flex-row flex-1">

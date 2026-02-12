@@ -4,9 +4,13 @@ export const SET_CREDITCARDS = "SET_CREDITCARDS";
 export const SET_ROLES = "SET_ROLES";
 export const SET_THEME = "SET_THEME";
 export const SET_LANGUAGE = "SET_LANGUAGE";
-import { getRoles as getRolesAPI } from "../../api/auth";
+import { getRolesAPI, loginAPI, verifyAPI } from "../../api/auth";
 import { toast } from "react-toastify";
-import axiosInstance, { setAuthToken } from "../../api/axios";
+import { setAuthToken } from "../../api/axios";
+import { addAddressAPI, deleteAddressAPI, getAddressesAPI, updateAddressAPI } from "../../api/address";
+export const ADD_ADDRESS = "ADD_ADDRESS";
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
+export const DELETE_ADDRESS = "DELETE_ADDRESS";
 
 export const setUser = ( user ) => {
   return { type: SET_USER, payload: user };
@@ -32,6 +36,18 @@ export const setLanguage = ( language ) => {
     return { type: SET_LANGUAGE, payload: language };
 };
 
+export const addAddress = ( formData ) => {
+    return { type: ADD_ADDRESS, payload: formData };
+};
+
+export const updateAddress = ( formData ) => {
+    return { type: UPDATE_ADDRESS, payload: formData };
+};
+
+export const deleteAddress = ( addressId ) => {
+    return { type: DELETE_ADDRESS, payload: addressId };
+};
+
 export const fetchRoles = () => async (dispatch) => {
   try {
     const res = await getRolesAPI();
@@ -44,7 +60,7 @@ export const fetchRoles = () => async (dispatch) => {
 export const loginUser = ({ email, password, remember }) => async (dispatch) => {
   try {
 
-    const res = await axiosInstance.post("/login", { email, password });
+    const res = await loginAPI({ email, password });
     const { token, name, role_id } = res.data;
 
     const user = { name, email, role_id, token };
@@ -71,7 +87,7 @@ export const verifyUser = () => async (dispatch) => {
   setAuthToken(token);
 
   try {
-    const res = await axiosInstance.get("/verify");
+    const res = await verifyAPI();
     const { name, email, role_id, token: newToken } = res.data;
 
     const user = { name, email, role_id, token: newToken };
@@ -94,3 +110,46 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(null);
   
 };
+
+export const fetchAddressList = () => async (dispatch) => {
+  
+  try {
+    const res = await getAddressesAPI();
+    dispatch(setAddressList(res.data));
+  } catch (error) {
+    toast.error("Addresses could not be fetched");
+  }
+}
+
+export const addAddressThunk = (formData) => async (dispatch) => {
+
+  try {
+    const res = await addAddressAPI(formData);
+    dispatch(addAddress(res.data[0]));
+    toast.success("Address added");
+  } catch (error) {
+    toast.error("Address could not be added");
+  }
+}
+
+export const updateAddressThunk = (formData) => async (dispatch) => {
+
+  try {
+    const res = await updateAddressAPI(formData);
+    dispatch(updateAddress(res.data));
+    toast.success("Address updated");
+  } catch (error) {
+    toast.error("Address could not be updated");
+  }
+}
+
+export const deleteAddressThunk = (addressId) => async (dispatch) => {
+
+  try {
+    await deleteAddressAPI(addressId);
+    dispatch(deleteAddress(addressId));
+    toast.success("Address deleted");
+  } catch (error) {
+    toast.error("Address could not be deleted");
+  }
+}

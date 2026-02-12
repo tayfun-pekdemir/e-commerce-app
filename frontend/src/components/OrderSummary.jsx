@@ -1,13 +1,24 @@
-export default function OrderSummary({ cart, checkedItems, total }) {
-    const shipping = checkedItems.length > 0 ? 4.99 : 0;   
-    const discount = 0; 
-    const grandTotal = total + shipping - discount;
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+export default function OrderSummary({ isOrderPage }) {
 
-    if(cart.length === 0) {
-       return <p className="text-center w-full text-[#252B42]">Your cart is empty.</p>
+    const cart = useSelector(state => state.shoppingCartRed.cart);
+    const checkedItems = cart.filter(item => item.checked);
+    const total = checkedItems.reduce(
+        (sum, item) => sum + item.product.price * item.count,
+        0
+    );
+
+    const shipping = checkedItems.length > 0 ? 4.99 : 0;
+    const discount = 0;
+    const grandTotal = total + shipping - discount;
+    const history = useHistory();
+
+    if (cart.length === 0) {
+        return <p className="text-center w-full text-[#252B42]">Your cart is empty.</p>
     }
     return (
-        <div className="flex flex-col w-full h-fit border border-[#FAFAFA] text-[#252B42] rounded-lg shadow-sm p-6 lg:w-80">
+        <div className="flex flex-col h-fit border border-[#FAFAFA] text-[#252B42] rounded-lg shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
 
             <div className="flex flex-col gap-3 text-sm">
@@ -34,12 +45,15 @@ export default function OrderSummary({ cart, checkedItems, total }) {
                 <span>{grandTotal.toFixed(2)}$</span>
             </div>
 
-            <button
-                disabled={checkedItems.length === 0}
-                className="mt-6 w-full bg-[#23A6F0] hover:bg-[#1D8BD3] disabled:opacity-50 disabled:pointer-events-none text-white py-2 rounded-md transition"
-            >
-                Create Order
-            </button>
+            {!isOrderPage &&
+                <button
+                    disabled={checkedItems.length === 0}
+                    className="mt-6 w-full bg-[#23A6F0] hover:bg-[#1D8BD3] disabled:opacity-50 disabled:pointer-events-none text-white py-2 rounded-md transition cursor-pointer"
+                    onClick={() => history.push("/order")}
+                >
+                    Create Order
+                </button>
+            }
         </div>
     );
 }

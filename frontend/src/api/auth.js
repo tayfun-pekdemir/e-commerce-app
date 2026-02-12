@@ -1,17 +1,17 @@
 import axiosInstance from "./axios";
 
-export const getRoles = () => {
+export const getRolesAPI = () => {
   return axiosInstance.get("/roles");
 };
 
-export const signup = (formData) => {
+export const signupAPI = (formData) => {
   return axiosInstance.post("/signup", formData);
 };
 
-export const login = (formData) => {
+export const loginAPI = (formData) => {
   return axiosInstance.post("/login", formData);
 };
 
-export const verify = () => {
+export const verifyAPI = () => {
   return axiosInstance.get("/verify");
 }

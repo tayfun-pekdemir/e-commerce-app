@@ -72,7 +72,7 @@ export default function LoginForm() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-[#23A6F0] rounded-sm px-4 py-2 text-white flex items-center justify-center gap-2 hover:bg-[#1D8BD3]"
+                        className="w-full bg-[#23A6F0] rounded-sm px-4 py-2 text-white flex items-center justify-center gap-2 hover:bg-[#1D8BD3] cursor-pointer"
                     >
                         {loading ? (
                             <>
@@ -88,7 +88,7 @@ export default function LoginForm() {
                             <input
                                 type="checkbox"
                                 {...register("remember")}
-                                className="w-5 h-5 rounded-sm border-2 border-[#23A6F0] checked:bg-[#23A6F0] checked:border-[#23A6F0] appearance-none checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center checked:before:text-xs"
+                                className="w-5 h-5 rounded-sm border-2 cursor-pointer border-[#23A6F0] checked:bg-[#23A6F0] checked:border-[#23A6F0] appearance-none checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:justify-center checked:before:items-center checked:before:text-xs"
                             />
                             <span className="ml-2">Remember me</span>
                         </label>

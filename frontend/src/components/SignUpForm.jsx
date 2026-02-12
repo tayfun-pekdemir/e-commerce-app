@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { signup } from "../api/auth";
+import { signupAPI } from "../api/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -44,7 +44,7 @@ export default function SignupForm() {
                     })
             };
 
-            await signup(payload);
+            await signupAPI(payload);
             toast.warning("You need to click link in email to activate your account!");
             history.goBack();
         } catch (err) {
