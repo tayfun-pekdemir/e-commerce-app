@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addAddressThunk, updateAddressThunk } from "../store/actions/clientActions";
 import { useEffect } from "react";
+import { setAddress } from "../store/actions/shoppingCartActions";
 
 export default function AddressForm({ onClose, editingAddress }) {
-
     const { register, handleSubmit, reset, setValue } = useForm();
     const dispatch = useDispatch();
 
@@ -19,8 +19,10 @@ export default function AddressForm({ onClose, editingAddress }) {
     const onSubmit = (formData) => {
         if (editingAddress) {
             dispatch(updateAddressThunk({ ...editingAddress, ...formData }));
+            dispatch(setAddress({ ...editingAddress, ...formData }));
         } else {
-            dispatch(addAddressThunk(formData));
+            const newAddress = dispatch(addAddressThunk(formData));
+            dispatch(setAddress(newAddress)); 
         }
         reset();
         onClose();

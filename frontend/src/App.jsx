@@ -21,6 +21,7 @@ import { fetchCategories, fetchProducts } from "./store/actions/productActions";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import OrderPage from "./pages/OrderPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PreviousOrdersPage from "./pages/PreviousOrdersPage";
 
 function App() {
   const categories = useSelector(state => state.productRed.categories);
@@ -58,8 +59,9 @@ function App() {
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/shop/:gender/:categoryName/:categoryId" component={ShopPage} />
           <Route exact path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId" component={ProductDetailPage} />
-          <Route exact path="/cart" component={ShoppingCartPage} />
-          <ProtectedRoute path="/order" component={OrderPage} />
+          <ProtectedRoute exact path="/cart" component={ShoppingCartPage} />
+          <ProtectedRoute exact path="/order" component={OrderPage} />
+          <ProtectedRoute exact path="/order-history" component={PreviousOrdersPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/team" component={TeamPage} />
           <Route exact path="/about" component={AboutUsPage} />

@@ -6,6 +6,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const INCREASE_COUNT = "INCREASE_COUNT";
 export const DECREASE_COUNT = "DECREASE_COUNT";
 export const TOGGLE_CHECKED = "TOGGLE_CHECKED";
+export const SET_PAYMENT_METHOD = "SET_PAYMENT_METHOD";
 
 export const setCart = ( cart ) => {
     return { type: SET_CART, payload: cart};
@@ -37,4 +38,8 @@ export const decreaseCount = ( productId ) => {
 
 export const toggleChecked = ( productId ) => {
     return { type: TOGGLE_CHECKED, payload: productId };
+};
+
+export const setPaymentMethod = (method) => {
+    return { type: SET_PAYMENT_METHOD, payload: method }
 };

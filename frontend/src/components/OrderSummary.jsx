@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-export default function OrderSummary({ isOrderPage }) {
+import { useEffect } from "react";
+
+export default function OrderSummary({ isOrderPage, setGrandTotal }) {
 
     const cart = useSelector(state => state.shoppingCartRed.cart);
     const checkedItems = cart.filter(item => item.checked);
@@ -14,11 +16,17 @@ export default function OrderSummary({ isOrderPage }) {
     const grandTotal = total + shipping - discount;
     const history = useHistory();
 
+     useEffect(() => {
+        if (setGrandTotal) {
+            setGrandTotal(grandTotal);
+        }
+    }, [grandTotal, setGrandTotal]);
+
     if (cart.length === 0) {
-        return <p className="text-center w-full text-[#252B42]">Your cart is empty.</p>
+        return null;
     }
     return (
-        <div className="flex flex-col h-fit border border-[#FAFAFA] text-[#252B42] rounded-lg shadow-sm p-6">
+        <div className="flex flex-col h-fit border w-full border-[#FAFAFA] text-[#252B42] rounded-lg shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
 
             <div className="flex flex-col gap-3 text-sm">

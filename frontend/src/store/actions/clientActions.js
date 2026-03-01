@@ -8,9 +8,13 @@ import { getRolesAPI, loginAPI, verifyAPI } from "../../api/auth";
 import { toast } from "react-toastify";
 import { setAuthToken } from "../../api/axios";
 import { addAddressAPI, deleteAddressAPI, getAddressesAPI, updateAddressAPI } from "../../api/address";
+import { getCreditCardAPI, addCreditCardAPI, deleteCreditCardAPI, updateCreditCardAPI } from "../../api/creditcard";
 export const ADD_ADDRESS = "ADD_ADDRESS";
 export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 export const DELETE_ADDRESS = "DELETE_ADDRESS";
+export const ADD_CREDIT_CARD = "ADD_CREDIT_CARD";
+export const UPDATE_CREDIT_CARD = "UPDATE_CREDIT_CARD";
+export const DELETE_CREDIT_CARD = "DELETE_CREDIT_CARD";
 
 export const setUser = ( user ) => {
   return { type: SET_USER, payload: user };
@@ -46,6 +50,18 @@ export const updateAddress = ( formData ) => {
 
 export const deleteAddress = ( addressId ) => {
     return { type: DELETE_ADDRESS, payload: addressId };
+};
+
+export const addCreditCard = ( formData ) => {
+    return { type: ADD_CREDIT_CARD, payload: formData };
+};
+
+export const updateCreditCard = ( formData ) => {
+    return { type: UPDATE_CREDIT_CARD, payload: formData };
+};
+
+export const deleteCreditCard = ( creditCardId ) => {
+    return { type: DELETE_CREDIT_CARD, payload: creditCardId };
 };
 
 export const fetchRoles = () => async (dispatch) => {
@@ -153,3 +169,50 @@ export const deleteAddressThunk = (addressId) => async (dispatch) => {
     toast.error("Address could not be deleted");
   }
 }
+
+export const fetchCreditCards = () => async (dispatch) => {
+  try {
+    const res = await getCreditCardAPI();
+    dispatch(setCreditCards(res.data));
+    return true;
+  } catch (error) {
+    toast.error("Credit Cards could not be fetched");
+    return false;
+  }
+};
+
+export const addCreditCardThunk = (formData) => async (dispatch) => {
+  try {
+    const res = await addCreditCardAPI(formData);
+    dispatch(addCreditCard(res.data[0]));
+    toast.success("Credit Card added");
+    return true;  
+  } catch (error) {
+    toast.error("Credit Card could not be added");
+    return false;  
+  }
+};
+
+export const updateCreditCardThunk = (formData) => async (dispatch) => {
+  try {
+    const res = await updateCreditCardAPI(formData);
+    dispatch(updateCreditCard(res.data));
+    toast.success("Credit Card updated");
+    return true;
+  } catch (error) {
+    toast.error("Credit Card could not be updated");
+    return false;
+  }
+};
+
+export const deleteCreditCardThunk = (creditCardId) => async (dispatch) => {
+  try {
+    await deleteCreditCardAPI(creditCardId);
+    dispatch(deleteCreditCard(creditCardId));
+    toast.success("Credit Card deleted");
+    return true;
+  } catch (error) {
+    toast.error("Credit Card could not be deleted");
+    return false;
+  }
+};

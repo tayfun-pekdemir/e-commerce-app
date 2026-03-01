@@ -124,7 +124,7 @@ export default function Navbar() {
                                         Go to Cart
                                     </Link>
                                     <Link
-                                        to="/cart"
+                                        to="/order"
                                         onClick={() => setIsCartOpen(false)}
                                         className="bg-[#23A6F0] text-white hover:bg-[#1D8BD3] text-sm px-4 py-2 rounded-md transition flex-1"
                                     >

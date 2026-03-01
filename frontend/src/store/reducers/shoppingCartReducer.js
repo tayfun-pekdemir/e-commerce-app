@@ -1,9 +1,18 @@
 import { SET_ADDRESS, SET_CART, SET_PAYMENT, ADD_TO_CART, REMOVE_FROM_CART, INCREASE_COUNT, DECREASE_COUNT, TOGGLE_CHECKED } from "../actions/shoppingCartActions";
 
 const initialState = {
+  paymentMethod: null,
   cart: [],
-  payment: {},
-  address: {}
+  payment: {
+  cardNo: "",
+  cardName: "",
+  expireMonth: "",
+  expireYear: "",
+  ccv: "",
+  installment: 1,
+  threeDSecure: false
+},
+  address: null
 };
 
 const shoppingCartReducer = ( state=initialState, action ) => {
@@ -74,6 +83,10 @@ const shoppingCartReducer = ( state=initialState, action ) => {
                     : item
                 )
             };
+
+        case "SET_PAYMENT_METHOD":
+            return { ...state, paymentMethod: action.payload };
+
         default:
             return state;
     }

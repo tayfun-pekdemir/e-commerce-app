@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddress } from "../store/actions/shoppingCartActions";
 
-export default function AddressCard({ address, selectedId, onSelect, onEdit, onDelete }) {
-  const isSelected = selectedId === address.id;
+export default function AddressCard({ address, onEdit, onDelete }) {
+  const dispatch = useDispatch();
+  const selectedAddress = useSelector(state => state.shoppingCartRed.address);
+  const isSelected = selectedAddress?.id === address.id;
 
   return (
     <label
@@ -17,7 +21,8 @@ export default function AddressCard({ address, selectedId, onSelect, onEdit, onD
             id={`address-${address.id}`}
             name="selectedAddress"
             checked={isSelected}
-            onChange={() => onSelect(address.id)}
+            onChange={() => dispatch(setAddress(address))}
+            className="cursor-pointer"
           />
           <span className="font-semibold text-sm">{address.title}</span>
         </div>
